@@ -1,17 +1,34 @@
 package com.example.bankapp.dto;
 
-/*import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;*/
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//import java.math.BigDecimal;
+import java.math.BigDecimal;
 
-/** Holds the data typed into the "Transfer Money" form. */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TransferRequest {
 
+    @NotBlank(message = "Source account number is required")
+    private String fromAccount;
+
+    @NotBlank(message = "Destination account number is required")
+    private String toAccount;
+
+    @NotNull(message = "Transfer amount is required")
+    @DecimalMin(value = "0.01", message = "Amount must be at least 0.01")
+    @Digits(integer = 12, fraction = 2, message = "Amount must have at most 12 integer digits and 2 decimal places")
+    private BigDecimal amount;
+
+    private boolean simulateFailure;
 }
