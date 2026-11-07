@@ -14,3 +14,5 @@ target/
 *.ipr
 .vscode/
 secrets.properties
+.env
+*.env
